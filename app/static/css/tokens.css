@@ -1,0 +1,64 @@
+/**
+ * Cinema CI — Design System Tokens & Color Palette
+ * Midnight Neon & Titanium Cinema theme.
+ */
+
+:root {
+  /* Surface & Backgrounds */
+  --bg-app: #070a0f;
+  --bg-surface-0: #0b0f17;
+  --bg-surface-1: #111827;
+  --bg-surface-2: #1e293b;
+  --bg-surface-3: #334155;
+  --bg-glass: rgba(15, 23, 42, 0.75);
+  --bg-glass-card: rgba(17, 24, 39, 0.85);
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.15);
+  --border-focus: #38bdf8;
+
+  /* Typography Colors */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Brand Accents */
+  --accent-cyan: #38bdf8;
+  --accent-indigo: #818cf8;
+  --accent-tempo: #c084fc;
+  --accent-grafana: #f46800;
+
+  /* Status Colors */
+  --status-pass: #10b981;
+  --status-pass-bg: rgba(16, 185, 129, 0.15);
+  --status-warn: #f59e0b;
+  --status-warn-bg: rgba(245, 158, 11, 0.15);
+  --status-danger: #f43f5e;
+  --status-danger-bg: rgba(244, 63, 94, 0.15);
+  --status-info: #38bdf8;
+  --status-info-bg: rgba(56, 189, 248, 0.15);
+
+  /* Glow Filters & Shadows */
+  --glow-cyan: 0 0 20px rgba(56, 189, 248, 0.25);
+  --glow-tempo: 0 0 20px rgba(192, 132, 252, 0.3);
+  --glow-grafana: 0 0 20px rgba(244, 104, 0, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-dropdown: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Fonts */
+  --font-sans: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --trans-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-bounce: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+

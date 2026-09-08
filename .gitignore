@@ -1,0 +1,27 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.json
+!grafana/*.json
+*service-account*.json
+*credentials*.json
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Generated video and build artifacts
+*.mp4
+*.mov
+*.webm
+storage/
+scratch/
+
+# Local tooling / OS files
+.DS_Store
+.coverage

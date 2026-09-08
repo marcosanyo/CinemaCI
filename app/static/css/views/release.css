@@ -1,0 +1,182 @@
+/**
+ * Cinema CI — Continuous Delivery & Release Gate View Styles
+ */
+
+.release-hero {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.release-gate-large {
+  display: inline-flex;
+}
+
+.gate-badge {
+  padding: 8px 24px;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.gate-idle { background: var(--bg-surface-2); color: var(--text-muted); }
+.gate-ready { background: var(--status-pass-bg); color: var(--status-pass); border: 2px solid var(--status-pass); box-shadow: 0 0 24px rgba(16, 185, 129, 0.4); }
+.gate-released { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color: #ffffff; box-shadow: var(--glow-cyan); }
+.gate-blocked { background: var(--status-danger-bg); color: var(--status-danger); border: 2px solid var(--status-danger); }
+
+.summary-pills-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.summary-pills-strip .pill {
+  padding: 6px 14px;
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+}
+
+/* Promote Card */
+.promote-card {
+  margin-bottom: 36px;
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border-color: var(--accent-cyan);
+}
+
+.promote-content {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Film Theater */
+.release-film {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.film-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.film-subtext {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.film-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.film-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.master-specs-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.spec-badge {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 4px 10px;
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+.badge-green { border-color: var(--status-pass); color: var(--status-pass); }
+
+/* Release Fingerprints */
+.release-breakdown-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 20px;
+}
+.release-breakdown-section h3 {
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.fingerprint-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.f-sha {
+  color: var(--text-dim);
+}
+
+/* Releases History */
+.releases-history-section {
+  margin-top: 36px;
+}
+
+.releases-history-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.releases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.release-item-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rel-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rel-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+}
+
+.rel-notes {
+  font-size: 0.85rem;
+}
+

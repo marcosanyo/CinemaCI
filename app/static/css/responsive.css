@@ -1,0 +1,578 @@
+/**
+ * Cinema CI — Responsive Layout Stylesheet
+ * Optimized for Mobile (<768px), Tablet (768px-1024px), and Small Desktop
+ */
+
+/* ==========================================================================
+   1. TABLET BREAKPOINT (<= 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* Global View Padding */
+  .view {
+    padding: 24px 16px 60px;
+  }
+
+  /* Header adjustments */
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .nav-btn {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
+  /* Studio View Grid: 1 Column */
+  .studio-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Impact View */
+  .impact-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Lineage / Telemetry Grid */
+  .lineage-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Telemetry Metric Cards */
+  .telemetry-metrics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  /* Build View Shots */
+  .shots-row {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* ==========================================================================
+   2. MOBILE BREAKPOINT (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Global Header & Nav */
+  .app-header {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .logo-title {
+    font-size: 1.15rem;
+  }
+
+  .header-right {
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .engine-pill {
+    padding: 2px 7px;
+    font-size: 0.68rem;
+  }
+
+  /* Navigation Bar: Full-width horizontally scrollable tabs */
+  .header-nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 6px;
+    justify-content: flex-start;
+    gap: 4px;
+  }
+
+  .header-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-btn {
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* Global Build Banner */
+  .global-build-banner {
+    padding: 8px 14px;
+  }
+
+  .banner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .banner-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* Global View Container */
+  .view {
+    padding: 16px 12px 48px;
+  }
+
+  /* Cards */
+  .card-header {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  /* ------------------------------------------------------------------------
+     Studio View (View 1)
+     ------------------------------------------------------------------------ */
+  .hero-section {
+    margin-bottom: 24px;
+  }
+
+  .hero-headline {
+    font-size: 1.75rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+
+  .hero-description {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .change-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .change-presets {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .preset-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .change-textarea {
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+
+  .change-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .change-action-row .btn {
+    width: 100%;
+  }
+
+  .shot-meta-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .studio-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .studio-actions .btn {
+    width: 100%;
+  }
+
+  /* ------------------------------------------------------------------------
+     Impact View (View 2)
+     ------------------------------------------------------------------------ */
+  .impact-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .impact-summary-strip {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .impact-pill {
+    flex: 1 1 calc(50% - 8px);
+    padding: 6px 10px;
+  }
+
+  .impact-dag-container,
+  .lineage-graph-container {
+    padding: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  .dag-legend-bar,
+  .lineage-legend {
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 10px 14px;
+    font-size: 0.76rem;
+  }
+
+  .evidence-meta-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .impact-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .impact-actions .btn {
+    width: 100%;
+  }
+
+  /* ------------------------------------------------------------------------
+     Build View (View 3)
+     ------------------------------------------------------------------------ */
+  .build-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .build-title-row {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .build-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .build-header-actions .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .test-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+  }
+
+  .test-category-breakdown {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .cat-pill {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    justify-content: space-between;
+  }
+
+  .shots-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .test-filters-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    gap: 6px;
+  }
+
+  .test-filters-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-chip {
+    white-space: nowrap;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .tests-table th,
+  .tests-table td {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .build-logs-list {
+    padding: 12px;
+    font-size: 0.76rem;
+  }
+
+  /* ------------------------------------------------------------------------
+     Agent Activity View (View 4)
+     ------------------------------------------------------------------------ */
+  .agent-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .agent-terminal-header {
+    padding: 10px 14px;
+  }
+
+  .terminal-title {
+    font-size: 0.68rem;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .agent-terminal-body {
+    padding: 12px;
+    max-height: 420px;
+  }
+
+  .agent-entry {
+    font-size: 0.8rem;
+  }
+
+  /* ------------------------------------------------------------------------
+     Release Gate View (View 5)
+     ------------------------------------------------------------------------ */
+  .release-hero {
+    margin-bottom: 24px;
+    gap: 12px;
+  }
+
+  .gate-badge {
+    padding: 6px 18px;
+    font-size: 0.85rem;
+  }
+
+  .summary-pills-strip {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .summary-pills-strip .pill {
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .promote-card {
+    margin-bottom: 24px;
+  }
+
+  .promote-content {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .promote-content .btn {
+    width: 100%;
+  }
+
+  .film-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .master-specs-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .gate-check-item {
+    padding: 10px 12px;
+    font-size: 0.82rem;
+  }
+
+  /* ------------------------------------------------------------------------
+     Lineage / Observability View (View 6)
+     ------------------------------------------------------------------------ */
+  .lineage-hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .lineage-flow-summary-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .flow-step-pill {
+    padding: 10px 14px;
+  }
+
+  .flow-pill-val {
+    font-size: 1.05rem;
+  }
+
+  .flow-connector-arrow {
+    display: flex;
+    justify-content: center;
+    transform: rotate(90deg);
+    margin: -2px 0;
+  }
+
+  .subtabs-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    padding-bottom: 6px;
+  }
+
+  .subtabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .subtab-btn {
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+
+  .query-input-wrap {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .query-input-wrap .btn {
+    width: 100%;
+  }
+
+  .waterfall-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .span-waterfall {
+    padding: 10px;
+  }
+
+  .waterfall-row {
+    min-width: 520px;
+  }
+
+  /* Modals */
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: var(--radius-md);
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  /* Toast notification */
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+  }
+
+  .toast {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   3. SMALL MOBILE BREAKPOINT (<= 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .logo-title {
+    font-size: 1rem;
+  }
+
+  .hero-headline {
+    font-size: 1.4rem;
+  }
+
+  .hero-chip {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+
+  .preset-btn {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .test-count-pass {
+    font-size: 1.75rem;
+  }
+
+  .test-count-total {
+    font-size: 1.25rem;
+  }
+
+  .test-category-breakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .telemetry-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .engine-badge-strip {
+    display: none; /* Hide top stack pills on ultra-narrow screens to keep header clean */
+  }
+}

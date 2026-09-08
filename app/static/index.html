@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinema CI — Creative Lineage & Continuous Delivery for AI Cinema</title>
+  <meta name="description" content="Change Impact Intelligence, Observed Runtime Lineage, Incremental Builds, and Continuous Delivery for Generative Filmmaking." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>" />
+  
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Modular Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/css/main.css?v=20260906-07" />
+</head>
+<body>
+
+  <!-- ===== TOP APP HEADER ===== -->
+  <header id="app-header" class="app-header">
+    <div class="header-left">
+      <div class="logo-group" id="brand-home-link" role="button" tabindex="0" aria-label="Cinema CI Home">
+        <div class="logo-icon-container">
+          <svg class="brand-svg-logo" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="brand-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="50%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#c084fc"/>
+              </linearGradient>
+              <linearGradient id="slate-grad" x1="0" y1="0" x2="28" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+            </defs>
+            <!-- Cinema Clapper Slate Body -->
+            <rect x="2" y="7" width="24" height="18" rx="4" fill="url(#slate-grad)" stroke="url(#brand-grad)" stroke-width="1.5"/>
+            <!-- Clapper Top Stripes -->
+            <path d="M3 11.5L25 11.5" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <path d="M7 7.5L5 11.5M13 7.5L11 11.5M19 7.5L17 11.5M25 7.5L23 11.5" stroke="url(#brand-grad)" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- AI Sparkle in Center -->
+            <path d="M14 13C14 15.2 12.2 17 10 17C12.2 17 14 18.8 14 21C14 18.8 15.8 17 18 17C15.8 17 14 15.2 14 13Z" fill="url(#brand-grad)"/>
+          </svg>
+          <span class="logo-live-pulse" title="System Online"></span>
+        </div>
+        <span class="logo-title">Cinema CI</span>
+      </div>
+    </div>
+
+    <!-- MAIN NAVIGATION TABS -->
+    <nav class="header-nav" aria-label="Main Navigation">
+      <button class="nav-btn active" data-view="project" id="nav-project" type="button">
+        <span class="nav-icon">🎬</span>
+        <span class="nav-label">Creative Studio</span>
+      </button>
+      <button class="nav-btn" data-view="impact" id="nav-impact" type="button">
+        <span class="nav-icon">✨</span>
+        <span class="nav-label">Impact Intelligence</span>
+      </button>
+      <button class="nav-btn" data-view="build" id="nav-build" type="button">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Build Inspector</span>
+      </button>
+      <button class="nav-btn" data-view="agent" id="nav-agent" type="button">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">ADK Agent</span>
+      </button>
+      <button class="nav-btn" data-view="release" id="nav-release" type="button">
+        <span class="nav-icon">🚀</span>
+        <span class="nav-label">Continuous Delivery</span>
+      </button>
+      <button class="nav-btn" data-view="telemetry" id="nav-telemetry" type="button">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Creative Lineage</span>
+      </button>
+    </nav>
+
+    <!-- STATUS & STACK BADGES -->
+    <div class="header-right">
+      <div class="engine-badge-strip">
+        <span class="engine-pill pill-gemini" title="Pinned to Gemini 3.8 Flash on Vertex AI">
+          <span class="pill-dot"></span>Gemini 3.8 Flash
+        </span>
+        <span class="engine-pill pill-veo" title="Google Veo 3.1 on Vertex AI">
+          <span class="pill-dot"></span>Veo 3.1 Lite
+        </span>
+        <span class="engine-pill pill-grafana" title="Official Grafana MCP (Prometheus, Loki, Tempo)">
+          <span class="pill-dot"></span>Grafana MCP
+        </span>
+      </div>
+      <div class="system-status-indicator" id="header-status">IDLE</div>
+    </div>
+  </header>
+
+  <!-- NOTIFICATION BANNER (LIVE BUILD IN PROGRESS) -->
+  <div class="global-build-banner u-hidden" id="global-build-banner" role="alert">
+    <div class="banner-inner">
+      <span class="banner-pulse"></span>
+      <span class="banner-icon">⚡</span>
+      <span class="banner-text" id="global-banner-text">Autonomous Build in progress...</span>
+      <div class="banner-actions">
+        <button class="btn btn-sm btn-primary" id="btn-view-running-build" type="button">View Live Build ➔</button>
+        <button class="btn btn-sm btn-danger" id="btn-cancel-running-build" type="button">⏹ Cancel Build</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: CREATIVE STUDIO (PROJECT) ===== -->
+  <main id="view-project" class="view active">
+    <section class="hero-section">
+      <div class="hero-chip">
+        <span class="chip-sparkle">✨</span> Change Impact Intelligence + Incremental CI/CD for AI Filmmaking
+      </div>
+      <h1 id="project-title" class="hero-headline">The Blue Envelope</h1>
+      <p class="hero-description" id="project-tagline">
+        Transform generative filmmaking from prompt-and-pray into a disciplined software lifecycle.
+        True Blast Radius derived from Grafana Tempo runtime traces, byte-identical asset reuse via SHA-256 proofs,
+        multimodal contract QA with Gemini 3.8 Flash, and continuous delivery.
+      </p>
+    </section>
+
+    <!-- CREATIVE CHANGE INTENT BOX (HERO ENTRY POINT) -->
+    <div class="card change-card" id="card-creative-change">
+      <div class="card-header change-header">
+        <div class="header-title-group">
+          <span class="header-icon">✨</span>
+          <div>
+            <h3>What do you want to change?</h3>
+            <span class="header-subtext">Natural language direction parsed by Gemini 3.8 Flash &amp; correlated with Grafana Tempo runtime traces</span>
+          </div>
+        </div>
+        <div class="change-presets">
+          <span class="preset-label">Scenarios:</span>
+          <button class="preset-btn preset-hero active" id="preset-hero-coat" title="Remove Marcus's eyeglasses">
+            Remove Eyeglasses (Incremental Rebuild)
+          </button>
+          <button class="preset-btn preset-reset" id="preset-reset" title="Reset contract">
+            Reset Contract
+          </button>
+        </div>
+      </div>
+      <div class="card-body change-body">
+        <div class="change-input-wrap">
+          <div class="scenario-guidance-banner" id="scenario-guidance">
+            <div class="guidance-header">
+              <span class="guidance-badge" id="guidance-badge">Hero Scenario</span>
+              <span class="guidance-title" id="guidance-title">Remove Eyeglasses (Incremental Rebuild)</span>
+            </div>
+            <div class="guidance-desc" id="guidance-desc">
+              Director requests removing Marcus's glasses. Gemini 3.8 Flash &amp; Tempo runtime traces derive True Blast Radius: Rebuild <strong>Shot 01, Shot 03, Poster</strong> | Byte-identical reuse <strong>Shot 02</strong> (1 of 3 video-generation operations avoided, 33.3%).
+            </div>
+            <div class="guidance-sync-note" id="guidance-sync-note">
+              ℹ️ <strong>Workflow:</strong> Natural language intent does not overwrite <code>cinema.yaml</code> directly. Clicking <em>"Analyze Change Impact"</em> ➔ <em>"Execute Incremental Build"</em> will autonomously mutate the contract and trigger the minimal rebuild.
+            </div>
+          </div>
+          <textarea id="input-change-prompt" class="form-textarea change-textarea" rows="2" placeholder="e.g. Remove Marcus's eyeglasses.">Remove Marcus's eyeglasses.</textarea>
+          <div class="change-action-row">
+            <button class="btn btn-primary btn-glow" id="btn-analyze-impact" type="button">
+              <span class="btn-icon">⚡</span> Analyze Change Impact (True Blast Radius)
+            </button>
+            <button class="btn btn-secondary" id="btn-full-build" type="button">
+              Run Full Rebuild
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDIO CONTRACT & PROMPT SPECIFICATION -->
+    <div class="studio-card card" id="card-studio">
+      <div class="card-header studio-header">
+        <div class="header-title-group">
+          <span class="header-icon">📋</span>
+          <div>
+            <h3>Creative Contract Specification (cinema.yaml)</h3>
+            <span class="header-subtext">Version-Controlled Character Bible, Props, and Scene Direction</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body studio-body">
+        <div class="studio-grid">
+          <!-- Character Bible Column -->
+          <div class="studio-col bible-col">
+            <div class="col-header">
+              <h4>Character Bible (Marcus)</h4>
+              <span class="col-badge">Visual Contract</span>
+            </div>
+
+            <div class="field-card">
+              <label for="input-marcus-coat" class="field-label">
+                <span class="label-title">Coat Description</span>
+                <span class="field-tag">WARDROBE</span>
+              </label>
+              <input type="text" id="input-marcus-coat" class="form-input" value="black coat" placeholder="e.g. black coat" />
+            </div>
+
+            <div class="field-card">
+              <label for="input-marcus-hair" class="field-label">
+                <span class="label-title">Hair Style &amp; Color</span>
+                <span class="field-tag">TRAIT</span>
+              </label>
+              <input type="text" id="input-marcus-hair" class="form-input" value="short fade haircut" placeholder="e.g. short fade haircut" />
+            </div>
+
+            <div class="field-card">
+              <label for="input-marcus-glasses" class="field-label">
+                <span class="label-title">Eyeglasses Rule</span>
+                <span class="field-tag">ACCESSORY</span>
+              </label>
+              <input type="text" id="input-marcus-glasses" class="form-input" value="no glasses" placeholder="e.g. no glasses" />
+            </div>
+
+            <div class="col-header props-header u-mt-md">
+              <h4>Hero Production Props</h4>
+              <span class="col-badge">Object Spec</span>
+            </div>
+
+            <div class="field-card">
+              <label for="input-prop-envelope-color" class="field-label">
+                <span class="label-title">Envelope Color</span>
+                <span class="field-tag">PROP SPEC</span>
+              </label>
+              <input type="text" id="input-prop-envelope-color" class="form-input" value="blue" placeholder="e.g. blue" />
+            </div>
+          </div>
+
+          <!-- Scene Prompts Column -->
+          <div class="studio-col prompts-col">
+            <div class="col-header">
+              <h4>Scene Prompts (Production Reel)</h4>
+              <span class="col-badge" id="shot-count-badge">Dynamic Reel</span>
+            </div>
+
+            <div id="shot-cards-container" class="shot-cards-container">
+              <!-- Dynamically populated by JS -->
+            </div>
+
+            <div class="shot-controls-bar u-mt-sm">
+              <button class="btn btn-secondary btn-sm" id="btn-add-shot" type="button">➕ Add Scene Shot</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="studio-actions">
+          <button class="btn btn-secondary" id="btn-save-contract" type="button">Save Contract</button>
+          <span class="save-status" id="save-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILD TIMELINE -->
+    <section class="build-timeline-section" id="build-timeline-section">
+      <div class="section-title-wrap">
+        <h2>Build History &amp; Delivery Trace Correlation</h2>
+        <span class="section-subtext">Every execution produces immutable OpenTelemetry trace spans</span>
+      </div>
+      <div class="timeline" id="build-timeline"></div>
+    </section>
+  </main>
+
+  <!-- ===== VIEW: IMPACT INTELLIGENCE (HERO SCREEN) ===== -->
+  <main id="view-impact" class="view">
+    <div class="impact-view-header">
+      <div class="impact-badge-wrap">
+        <span class="badge badge-accent">Observed Creative Lineage</span>
+        <span class="badge badge-tempo">Grafana Tempo Trace Correlated</span>
+      </div>
+      <h1 id="impact-view-title">Change Impact Preview &amp; True Blast Radius</h1>
+      <p class="impact-sub">
+        Calculated via <code>True Blast Radius = Declared Dependencies ∪ Observed Runtime Lineage</code>.
+        Unaffected assets are safely reused with mathematical SHA-256 byte proof.
+      </p>
+    </div>
+
+    <div class="impact-plan-container" id="impact-plan-container">
+      <!-- Dynamically filled by JS -->
+    </div>
+  </main>
+
+  <!-- ===== VIEW: BUILD INSPECTOR ===== -->
+  <main id="view-build" class="view">
+    <div class="build-header">
+      <div class="build-header-left">
+        <div class="build-title-row">
+          <h1 id="build-title">BUILD —</h1>
+          <select id="build-selector" class="build-select-dropdown font-mono" title="Select Build to Inspect"></select>
+        </div>
+        <div id="build-savings-banner" class="build-savings-banner u-hidden"></div>
+        <div id="build-repair-notice" class="build-repair-notice u-hidden"></div>
+      </div>
+      <div class="build-header-actions">
+        <button class="btn btn-sm btn-danger u-hidden" id="btn-cancel-detail-build" type="button">⏹ Cancel Build</button>
+        <span class="build-status-badge" id="build-status-badge">—</span>
+      </div>
+    </div>
+
+    <div class="test-summary" id="test-summary">
+      <div class="test-counter">
+        <span class="test-count-pass" id="tests-passed">0</span>
+        <span class="test-count-sep">/</span>
+        <span class="test-count-total" id="tests-total">0</span>
+        <span class="test-count-label">TESTS PASSED</span>
+      </div>
+      <div class="test-category-breakdown" id="test-category-breakdown"></div>
+    </div>
+
+    <div class="section-title-wrap">
+      <h3>Verified Shot Cut &amp; Deliverables Breakdown</h3>
+      <span class="section-subtext">Asset Fingerprints (SHA-256) &amp; Zero-Compute Reuse Verification</span>
+    </div>
+    <div class="shots-row" id="shots-row">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="section-title-wrap u-mt-xl">
+      <h3>Multi-Stage QA Test Matrix</h3>
+      <span class="section-subtext">Deterministic PyAV/FFmpeg Technical Checks + Gemini 3.8 Flash Multimodal Creative Contract QA</span>
+    </div>
+    <div class="test-results-list" id="test-results-list">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="build-logs-container u-mt-xl" id="build-logs-container">
+      <h3 class="logs-title">Build Execution &amp; Evaluator Logs</h3>
+      <div class="build-logs-list" id="build-logs-list"></div>
+    </div>
+
+    <div class="actions-bar">
+      <button class="btn btn-primary btn-glow u-hidden" id="btn-promote-release-detail" type="button">
+        🚀 Promote to Release (Human Approval)
+      </button>
+      <button class="btn btn-warning u-hidden" id="btn-repair" type="button">
+        🤖 Repair with ADK Agent
+      </button>
+      <button class="btn btn-secondary" id="btn-view-tempo-trace-detail" type="button">
+        📊 View in Grafana Tempo
+      </button>
+      <button class="btn btn-secondary" id="btn-back-project" type="button">
+        Back to Studio
+      </button>
+    </div>
+  </main>
+
+  <!-- ===== VIEW: ADK AGENT ===== -->
+  <main id="view-agent" class="view">
+    <div class="agent-header">
+      <div>
+        <h1>ADK Autonomous Agent</h1>
+        <p class="agent-subtitle">Grafana Cloud MCP Inspection (Prometheus, Loki, Tempo) &amp; Surgical Repair</p>
+      </div>
+      <span class="agent-status" id="agent-status">IDLE</span>
+    </div>
+
+    <div class="agent-timeline" id="agent-timeline">
+      <!-- filled by JS -->
+    </div>
+  </main>
+
+  <!-- ===== VIEW: CONTINUOUS DELIVERY & RELEASE ===== -->
+  <main id="view-release" class="view">
+    <div class="release-hero">
+      <div class="release-gate-large" id="release-gate-large">
+        <span class="gate-badge gate-idle">IDLE</span>
+      </div>
+      <h1 id="release-build-title">—</h1>
+      <div class="release-test-summary" id="release-test-summary"></div>
+    </div>
+
+    <!-- RELEASE CANDIDATE PROMOTION BOX -->
+    <div class="card promote-card u-hidden" id="card-promote">
+      <div class="promote-content">
+        <div>
+          <h3>Release Candidate Validated</h3>
+          <p class="text-muted">All creative and technical quality gates passed. Ready for human promotion to production release.</p>
+        </div>
+        <button class="btn btn-primary btn-glow" id="btn-promote-release" type="button">
+          🚀 Promote to Production Release
+        </button>
+      </div>
+    </div>
+
+    <!-- MASTER FILM PLAYER -->
+    <div class="release-film u-hidden" id="release-film">
+      <div class="film-header-bar">
+        <div>
+          <h2>Final Master Film (Stitched &amp; Released)</h2>
+          <span class="film-subtext">Continuous Delivery Final Master Cut</span>
+        </div>
+        <div id="master-film-actions">
+          <a id="btn-download-film" class="btn btn-primary" href="#" download>
+            ⬇ Download Master (.mp4)
+          </a>
+        </div>
+      </div>
+
+      <div class="film-player" id="film-player">
+        <video id="master-film-video" controls muted preload="auto"></video>
+      </div>
+
+      <div id="master-film-specs" class="master-specs-row">
+        <span class="spec-badge">Container: MP4 (H.264 / AAC)</span>
+        <span class="spec-badge">Resolution: 1280x720 (16:9)</span>
+        <span class="spec-badge">Frame Rate: 24.0 fps</span>
+        <span class="spec-badge" id="master-film-duration">Duration: ~15.0s (3 Shots)</span>
+        <span class="spec-badge" id="master-film-savings">Full Build (0% Avoided)</span>
+      </div>
+
+      <div class="release-breakdown-section">
+        <h3>Verified Cut Asset Fingerprints (SHA-256 Proof)</h3>
+        <div class="shots-row" id="release-shots-row"></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTION RELEASES HISTORY -->
+    <div class="releases-history-section">
+      <h3>Production Release Log</h3>
+      <div class="releases-list" id="releases-list"></div>
+    </div>
+  </main>
+
+  <!-- ===== VIEW: CREATIVE LINEAGE INSPECTOR ===== -->
+  <main id="view-telemetry" class="view">
+    <div class="lineage-hero">
+      <div class="lineage-hero-top">
+        <div class="lineage-title-group">
+          <span class="lineage-eyebrow">CONTINUOUS OBSERVABILITY &amp; CREATIVE RUNTIME LINEAGE</span>
+          <h1 id="lineage-hero-title">Creative Lineage Inspector</h1>
+          <div class="lineage-sub-details">
+            <span class="font-mono text-accent" id="lineage-build-tag">Build #0023</span>
+            <span class="text-dim">·</span>
+            <span class="font-mono text-muted" id="lineage-trace-tag">Trace: 8af31c...</span>
+            <span class="text-dim">·</span>
+            <span class="badge-tempo-live" id="badge-tempo-live">
+              <span class="badge-dot-pulse"></span> LIVE FROM GRAFANA TEMPO
+            </span>
+          </div>
+        </div>
+        <div class="lineage-build-selector-wrap">
+          <label for="select-lineage-build" class="select-label">Inspect Build:</label>
+          <select id="select-lineage-build" class="form-select font-mono"></select>
+        </div>
+      </div>
+
+      <!-- Creative Change Context Banner -->
+      <div class="lineage-change-banner" id="lineage-change-banner">
+        <div class="change-banner-icon">✨</div>
+        <div class="change-banner-content">
+          <div class="change-banner-label">Creative Change Intent (Parsed by Gemini &amp; Correlated with Tempo)</div>
+          <div class="change-banner-text" id="lineage-change-text">Select a build to inspect creative lineage</div>
+        </div>
+      </div>
+
+      <!-- Why Grafana Tempo Matters Banner -->
+      <div class="why-grafana-banner">
+        <span>💡</span>
+        <span>
+          <strong>Why Grafana Tempo matters:</strong> Static manifests show what should depend on what. Grafana Tempo shows what actually did at runtime.
+        </span>
+      </div>
+    </div>
+
+    <!-- PIPELINE FLOW INSIGHT BAR -->
+    <div class="lineage-flow-summary-bar">
+      <div class="flow-step-pill">
+        <span class="flow-pill-tag">MANIFEST DECLARED</span>
+        <span class="flow-pill-val" id="stat-declared-count">—</span>
+        <span class="flow-pill-sub">(Declared Assets)</span>
+      </div>
+      <div class="flow-connector-arrow">➔</div>
+      <div class="flow-step-pill">
+        <span class="flow-pill-tag text-tempo">GRAFANA TEMPO DISCOVERY</span>
+        <span class="flow-pill-val text-tempo" id="stat-runtime-count">+1 Dynamic Edge</span>
+        <span class="flow-pill-sub">(Poster keyframe selection)</span>
+      </div>
+      <div class="flow-connector-arrow">➔</div>
+      <div class="flow-step-pill">
+        <span class="flow-pill-tag text-accent">TRUE BLAST RADIUS</span>
+        <span class="flow-pill-val text-accent" id="stat-true-count">—</span>
+        <span class="flow-pill-sub">(Rebuild &amp; Reuse Ops)</span>
+      </div>
+    </div>
+
+    <!-- MAIN WORKSPACE: INTERACTIVE LINEAGE GRAPH + EVIDENCE INSPECTOR -->
+    <div class="lineage-workspace-grid">
+      <!-- Visual Lineage Graph -->
+      <div class="card lineage-graph-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <span class="header-icon">🕸</span>
+            <div>
+              <h3>Observed Creative Lineage Graph</h3>
+              <span class="header-subtext">Manifest dependencies vs Grafana Tempo runtime-discovered edge</span>
+            </div>
+          </div>
+          <span class="badge badge-tempo">Click node for Tempo evidence</span>
+        </div>
+
+        <div class="dag-scroll-hint-bar">
+          <span class="dag-scroll-pill">↔ Swipe to explore</span>
+        </div>
+
+        <div class="lineage-graph-container" id="lineage-graph-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <div class="lineage-legend">
+          <div class="legend-item">
+            <span class="legend-line line-declared"></span>
+            <span>Declared in <code>cinema.yaml</code></span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line line-tempo"></span>
+            <span class="text-tempo font-bold">Observed · Grafana Tempo</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-node-dot dot-baseline"></span>
+            <span>Baseline Gen</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-node-dot dot-rebuild"></span>
+            <span>Rebuilt</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-node-dot dot-reuse"></span>
+            <span>Safe Reuse</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Runtime Evidence Inspector -->
+      <div class="card evidence-inspector-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <span class="header-icon">🎯</span>
+            <div>
+              <h3>Runtime Evidence Inspector</h3>
+              <span class="header-subtext">Captured OpenTelemetry Span in Grafana Tempo</span>
+            </div>
+          </div>
+          <span class="badge badge-tempo" id="ev-header-badge">LIVE · GRAFANA TEMPO</span>
+        </div>
+
+        <div class="evidence-body" id="evidence-body">
+          <div class="evidence-item">
+            <span class="evidence-k">Consumer Asset</span>
+            <span class="evidence-v font-bold" id="ev-consumer">Poster (Theatrical Key Visual)</span>
+          </div>
+          <div class="evidence-item">
+            <span class="evidence-k">Runtime Dependency</span>
+            <span class="evidence-v font-mono text-accent" id="ev-dependency">Selected reference: dynamic:keyframe</span>
+          </div>
+          <div class="evidence-item">
+            <span class="evidence-k">Selected By</span>
+            <span class="evidence-v" id="ev-selector">Gemini 3.8 Flash Art Director</span>
+          </div>
+          <div class="evidence-item">
+            <span class="evidence-k">Art Director Decision</span>
+            <div class="evidence-quote" id="ev-decision">
+              "Selected keyframe provides the strongest protagonist framing and composition for the theatrical poster."
+            </div>
+          </div>
+          <div class="evidence-meta-row">
+            <div>
+              <span class="evidence-k">Recorded Span</span>
+              <span class="evidence-v font-mono" id="ev-span">cinema.reference.select</span>
+            </div>
+            <div>
+              <span class="evidence-k">Confidence</span>
+              <span class="evidence-v font-mono text-green" id="ev-confidence">0.96</span>
+            </div>
+          </div>
+          <div class="evidence-item u-mt-sm">
+            <span class="evidence-k">Trace ID</span>
+            <span class="evidence-v font-mono text-muted text-break" id="ev-trace-id">—</span>
+          </div>
+
+          <div class="evidence-action-row u-mt-md">
+            <a href="https://friendlysherbet668.grafana.net" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-glow" id="btn-open-trace-grafana">
+              Open Raw Trace in Grafana ↗
+            </a>
+            <button class="btn btn-secondary btn-sm" id="btn-copy-trace-id" type="button">
+              📋 Copy Trace ID
+            </button>
+          </div>
+        </div>
+
+        <!-- Incremental Savings Breakdown -->
+        <div class="incremental-impact-box">
+          <div class="impact-box-title" id="ev-box-title">INCREMENTAL RESULT &amp; COMPUTE SAVINGS</div>
+          <div class="impact-stats-grid">
+            <div class="impact-stat">
+              <span class="stat-num text-white" id="ev-rebuilt-ops">—</span>
+              <span class="stat-lbl">Rebuilt Assets</span>
+            </div>
+            <div class="impact-stat">
+              <span class="stat-num text-green" id="ev-reused-ops">—</span>
+              <span class="stat-lbl">Reused Assets</span>
+            </div>
+            <div class="impact-stat">
+              <span class="stat-num text-accent" id="ev-avoided-ops">—</span>
+              <span class="stat-lbl">Video Gen Avoided</span>
+            </div>
+          </div>
+          <div class="sha-verified-list" id="ev-sha-list">
+            <div class="text-muted">Select a build to view byte-reuse verification…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBSERVABILITY SUBTABS -->
+    <div class="telemetry-subtabs-section">
+      <div class="subtabs-bar">
+        <button class="subtab-btn" data-subtab="health" id="subtab-btn-health" type="button">
+          📈 Build Health &amp; Metrics
+        </button>
+        <button class="subtab-btn active" data-subtab="raw" id="subtab-btn-raw" type="button">
+          📑 Raw Telemetry (Tempo Waterfall, Loki &amp; PromQL)
+        </button>
+        <button class="subtab-btn" data-subtab="integration" id="subtab-btn-integration" type="button">
+          ⚙️ Integration &amp; Dev Tools
+        </button>
+      </div>
+
+      <!-- SUBTAB 1: BUILD HEALTH & OPERATIONAL METRICS -->
+      <div class="subtab-content" id="subtab-content-health">
+        <div class="section-title-wrap u-mb-md">
+          <h3>Prometheus Real-Time Metrics &amp; Operational Health</h3>
+          <span class="section-subtext">Quality Gate state and incremental savings across current build and historical pipeline</span>
+        </div>
+        <div class="telemetry-metrics-grid" id="telemetry-metrics-grid"></div>
+      </div>
+
+      <!-- SUBTAB 2: RAW TELEMETRY -->
+      <div class="subtab-content active" id="subtab-content-raw">
+        <!-- PromQL & LogQL Interactive Explorer -->
+        <div class="card query-explorer-card u-mb-lg">
+          <div class="card-header">
+            <div class="header-title-group">
+              <span class="header-icon">🔎</span>
+              <div>
+                <h3>Grafana MCP Query Console (PromQL &amp; LogQL)</h3>
+                <span class="header-subtext">Execute live queries against Grafana Cloud using official MCP tools</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="query-input-row">
+              <div class="query-type-toggle">
+                <button class="query-type-btn active" id="btn-type-promql" type="button">PromQL (Metrics)</button>
+                <button class="query-type-btn" id="btn-type-logql" type="button">LogQL (Loki Logs)</button>
+              </div>
+              <div class="query-input-wrap">
+                <input type="text" id="input-telemetry-query" class="form-input font-mono" value="cinema_ci_active_regressions" placeholder="Enter PromQL or LogQL query..." />
+                <button class="btn btn-primary" id="btn-run-telemetry-query" type="button">Execute via MCP ➔</button>
+              </div>
+            </div>
+            <div class="query-presets-row">
+              <span class="preset-label">Presets:</span>
+              <button class="preset-query-btn" data-type="promql" data-query="cinema_ci_release_ready" type="button">Release Gate</button>
+              <button class="preset-query-btn" data-type="promql" data-query="cinema_ci_test_pass_ratio * 100" type="button">Pass Ratio %</button>
+              <button class="preset-query-btn" data-type="promql" data-query="cinema_ci_active_regressions" type="button">Regressions</button>
+              <button class="preset-query-btn" data-type="promql" data-query="cinema_ci_generation_operations_avoided" type="button">Ops Avoided</button>
+              <button class="preset-query-btn" data-type="logql" data-query='{service_name="cinema-ci"}' type="button">All Cinema Logs</button>
+              <button class="preset-query-btn" data-type="logql" data-query='{service_name="cinema-ci"} | json | status="REGRESSION"' type="button">Loki Regressions</button>
+            </div>
+            <div class="query-result-box u-hidden" id="query-result-box">
+              <div class="query-result-header">
+                <span class="query-result-title" id="query-result-title">Query Response</span>
+              </div>
+              <pre class="query-result-pre" id="query-result-pre"></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tempo Span Waterfall -->
+        <div class="card tempo-trace-card u-mb-lg">
+          <div class="card-header">
+            <div>
+              <h3>Grafana Tempo — Distributed Span Waterfall</h3>
+              <span class="header-subtext" id="raw-waterfall-subtext">OpenTelemetry span execution hierarchy</span>
+            </div>
+          </div>
+          <div class="span-waterfall" id="span-waterfall"></div>
+        </div>
+
+        <!-- Loki Logs Stream -->
+        <div class="card loki-logs-card">
+          <div class="loki-logs-toolbar">
+            <div class="loki-filters">
+              <button class="loki-filter-btn active" data-filter="all" type="button">All Events</button>
+              <button class="loki-filter-btn" data-filter="cinema_test_result" type="button">QA Test Results</button>
+              <button class="loki-filter-btn" data-filter="validation_completed" type="button">Quality Gates</button>
+              <button class="loki-filter-btn" data-filter="artifact_reused" type="button">Asset Reuses</button>
+            </div>
+            <span class="font-mono text-muted" id="loki-log-count">0 logs</span>
+          </div>
+          <div class="loki-logs-table-wrap">
+            <table class="loki-table">
+              <thead>
+                <tr>
+                  <th>Timestamp (UTC)</th>
+                  <th>Event</th>
+                  <th>Build ID</th>
+                  <th>Scope</th>
+                  <th>Status</th>
+                  <th>Details / Observation</th>
+                </tr>
+              </thead>
+              <tbody id="loki-logs-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBTAB 3: INTEGRATION & DEV TOOLS -->
+      <div class="subtab-content" id="subtab-content-integration">
+        <div class="card grafana-control-card u-mb-lg">
+          <div class="card-header">
+            <h3>Grafana Cloud &amp; MCP Subprocess Architecture</h3>
+          </div>
+          <div class="grafana-conn-grid">
+            <div class="conn-item">
+              <span class="conn-label">Grafana Cloud URL</span>
+              <a href="https://friendlysherbet668.grafana.net" target="_blank" rel="noopener noreferrer" id="val-grafana-url">
+                https://friendlysherbet668.grafana.net ↗
+              </a>
+            </div>
+            <div class="conn-item">
+              <span class="conn-label">OTLP Gateway Endpoint</span>
+              <span class="font-mono" id="val-otlp-endpoint">otlp-gateway-prod-ap-northeast-0.grafana.net</span>
+            </div>
+            <div class="conn-item">
+              <span class="conn-label">Data Sources</span>
+              <span class="font-mono text-muted">Prometheus, Loki, Tempo</span>
+            </div>
+            <div class="conn-item">
+              <span class="conn-label">MCP Server Transport</span>
+              <span class="font-mono" id="val-mcp-transport">uvx mcp-grafana (STDIO JSON-RPC)</span>
+            </div>
+          </div>
+          <div class="grafana-control-actions">
+            <button class="btn btn-secondary" id="btn-copy-dashboard-json" type="button">📋 Copy Dashboard JSON</button>
+            <button class="btn btn-secondary" id="btn-refresh-telemetry" type="button">🔄 Refresh Status</button>
+          </div>
+        </div>
+
+        <div class="card alert-rules-summary-card">
+          <div class="card-header">
+            <h3>Grafana Alerting Rules (Alertmanager)</h3>
+          </div>
+          <div class="alerts-grid u-mb-lg">
+            <div class="alert-rule-card">
+              <div class="alert-rule-header">
+                <span class="alert-rule-badge badge-red">CRITICAL</span>
+                <h4>CinemaRegressionDetected</h4>
+              </div>
+              <div class="alert-rule-expr">
+                <code>cinema_ci_active_regressions &gt; 0</code>
+              </div>
+              <p class="alert-rule-desc">Fires immediately when a creative or technical regression is detected. Dispatches webhook to ADK Agent for investigation.</p>
+            </div>
+            <div class="alert-rule-card">
+              <div class="alert-rule-header">
+                <span class="alert-rule-badge badge-yellow">WARNING</span>
+                <h4>CinemaReleaseBlocked</h4>
+              </div>
+              <div class="alert-rule-expr">
+                <code>cinema_ci_release_ready == 0</code>
+              </div>
+              <p class="alert-rule-desc">Fires when Quality Gate blocks release readiness due to failing tests or unresolved regressions.</p>
+            </div>
+          </div>
+
+          <details class="dev-tools-details">
+            <summary class="dev-tools-summary">⚙️ Development &amp; Testing Tools (Webhook Simulation)</summary>
+            <div class="dev-tools-body">
+              <p class="text-muted u-mb-sm">Simulate an incoming firing alert from Grafana Cloud Alertmanager to test autonomous ADK Agent webhook ingestion:</p>
+              <button class="btn btn-warning btn-sm" id="btn-test-alert-webhook" type="button">
+                ⚡ Simulate Grafana Alert Webhook
+              </button>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Native ES Modules Entry Point -->
+  <script type="module" src="/static/js/main.js?v=20260906-07"></script>
+</body>
+</html>

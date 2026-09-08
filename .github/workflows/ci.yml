@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - fix/submission-evidence-integrity
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      STRICT_MODE: "false"
+      CINEMA_STRICT_MODE: "0"
+      CINEMA_ENV: local
+      CINEMA_ARTIFACT_BACKEND: local
+      CINEMA_METADATA_BACKEND: local
+      CINEMA_BUILD_EXECUTOR: local
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile Python sources
+        run: python -m compileall -q app tests scripts
+
+      - name: Run unit tests
+        run: python -m unittest discover tests -v

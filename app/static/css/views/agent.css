@@ -1,0 +1,212 @@
+/**
+ * Cinema CI — Autonomous ADK Agent View Styles
+ */
+
+.agent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.agent-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.agent-status {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.agent-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-empty-box {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 48px 24px;
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.empty-sparkle {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+/* Agent Terminal */
+.agent-terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #020617;
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 12px 20px;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.t-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green { background: #22c55e; }
+
+.terminal-title {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.btn-refresh-term {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.btn-refresh-term:hover { color: #ffffff; }
+
+.agent-terminal-body {
+  background: #090d16;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.agent-entry {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.entry-ts { font-size: 0.75rem; }
+.entry-action { font-size: 0.85rem; font-weight: 700; }
+.entry-shot { font-size: 0.8rem; color: var(--accent-cyan); }
+
+.entry-message {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.entry-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+}
+
+.tool-tag {
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--accent-tempo);
+}
+
+.entry-details-pre {
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+/* Agent Repair Completion Banner */
+.agent-repair-banner {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(14, 165, 233, 0.08));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.agent-repair-banner.banner-running {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(168, 85, 247, 0.08));
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.repair-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.repair-banner-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.repair-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.repair-banner-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  max-width: 650px;
+  line-height: 1.4;
+}
+
+.repair-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

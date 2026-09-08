@@ -1,0 +1,64 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: Cinema CI Webhook
+    receivers:
+      - uid: cinema-ci-webhook
+        type: webhook
+        settings:
+          url: http://cinema-ci:8000/api/v1/alerts/webhook
+          httpMethod: POST
+
+policies:
+  - orgId: 1
+    receiver: Cinema CI Webhook
+    group_by: ['alertname', 'project_id']
+
+groups:
+  - orgId: 1
+    name: Cinema CI Alerts
+    folder: Cinema
+    interval: 1m
+    rules:
+      - uid: cinema-regression-detected
+        title: CinemaRegressionDetected
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: grafanacloud-prom
+            model:
+              expr: cinema_ci_active_regressions > 0
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 0m
+        annotations:
+          summary: "Cinema CI detected active regressions"
+          description: "There are currently {{ $values.A.Value }} active regressions for project {{ $labels.project_id }}."
+        labels:
+          severity: critical
+
+      - uid: cinema-release-blocked
+        title: CinemaReleaseBlocked
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: grafanacloud-prom
+            model:
+              expr: cinema_ci_release_ready == 0
+              refId: A
+        noDataState: OK
+        execErrState: Error
+        for: 1m
+        annotations:
+          summary: "Cinema CI release blocked"
+          description: "The cinema build for project {{ $labels.project_id }} has been blocked from release for over 1 minute."
+        labels:
+          severity: warning

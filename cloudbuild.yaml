@@ -1,0 +1,7 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/hackathon-505614/cinema-ci', '.']
+images:
+  - 'gcr.io/hackathon-505614/cinema-ci'
+options:
+  logging: CLOUD_LOGGING_ONLY

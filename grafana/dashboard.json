@@ -1,0 +1,185 @@
+{
+  "title": "Cinema CI — Change Impact & Continuous Delivery",
+  "tags": [
+    "cinema-ci",
+    "change-impact",
+    "continuous-delivery",
+    "generative-ai"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Release Gate",
+      "gridPos": { "h": 6, "w": 4, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "cinema_ci_release_ready",
+          "datasource": { "uid": "grafanacloud-prom" }
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "1": { "text": "RELEASE READY", "color": "green" },
+                "0": { "text": "RELEASE BLOCKED", "color": "red" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Build Operations & Savings",
+      "gridPos": { "h": 6, "w": 8, "x": 4, "y": 0 },
+      "targets": [
+        {
+          "expr": "cinema_ci_assets_rebuilt",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Rebuilt Assets"
+        },
+        {
+          "expr": "cinema_ci_assets_reused",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Reused Assets"
+        },
+        {
+          "expr": "cinema_ci_generation_operations_avoided",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Operations Avoided"
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "gauge",
+      "title": "QA Test Pass Rate",
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "cinema_ci_test_pass_ratio",
+          "datasource": { "uid": "grafanacloud-prom" }
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "red" },
+              { "value": 0.8, "color": "yellow" },
+              { "value": 0.95, "color": "green" }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Active Regressions",
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "expr": "cinema_ci_active_regressions",
+          "datasource": { "uid": "grafanacloud-prom" }
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Incremental Operations & Rebuild History",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "targets": [
+        {
+          "expr": "cinema_ci_builds_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "{{result}}"
+        },
+        {
+          "expr": "cinema_ci_build_operations",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Operations Total"
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" }
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "QA Test Matrix (Creative vs Technical)",
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 6 },
+      "targets": [
+        {
+          "expr": "cinema_ci_creative_tests_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Creative Tests"
+        },
+        {
+          "expr": "cinema_ci_technical_tests_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Technical Tests"
+        },
+        {
+          "expr": "cinema_ci_validation_failures_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Failures"
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" }
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Repairs (Fallback Self-Healing)",
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 6 },
+      "targets": [
+        {
+          "expr": "cinema_ci_repairs_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Total Attempts"
+        },
+        {
+          "expr": "cinema_ci_repair_success_total",
+          "datasource": { "uid": "grafanacloud-prom" },
+          "legendFormat": "Successful"
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-prom" }
+    },
+    {
+      "id": 8,
+      "type": "logs",
+      "title": "Runtime Lineage & Change Events (Tempo Correlated)",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 14 },
+      "targets": [
+        {
+          "expr": "{service_name=\"cinema-ci\"}",
+          "datasource": { "uid": "grafanacloud-logs" }
+        }
+      ],
+      "datasource": { "uid": "grafanacloud-logs" }
+    }
+  ]
+}

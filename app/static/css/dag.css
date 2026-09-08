@@ -1,0 +1,284 @@
+/**
+ * Cinema CI — Interactive DAG Lineage Graph & Animated SVG Edges
+ */
+
+.dag-wrapper {
+  position: relative;
+  width: 100%;
+  min-width: 940px;
+  min-height: 500px;
+  background: radial-gradient(circle at 50% 50%, rgba(30, 27, 75, 0.4) 0%, rgba(11, 15, 23, 0.95) 100%);
+  border-radius: var(--radius-md);
+  padding: 24px 24px;
+  box-sizing: border-box;
+}
+
+.dag-svg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Animated SVG Edges */
+.dag-edge-declared {
+  transition: stroke var(--trans-fast), stroke-width var(--trans-fast);
+}
+
+.dag-edge-tempo {
+  stroke-dasharray: 8 4;
+  animation: tempoFlow 1.2s linear infinite;
+}
+
+@keyframes tempoFlow {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+.dag-edge-master {
+  animation: masterFlow 2s linear infinite;
+}
+
+@keyframes masterFlow {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* 3-Stage Columns Grid */
+.dag-grid {
+  position: relative;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(190px, 220px) minmax(330px, 1.2fr) minmax(260px, 1fr);
+  gap: 72px;
+  min-height: 480px;
+}
+
+.dag-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Stage 0 (Root Intent): Vertically center Root node across from middle shot */
+.dag-col.stage-intent {
+  display: flex;
+  flex-direction: column;
+}
+
+.dag-col.stage-intent .dag-node-root {
+  margin: auto 0;
+}
+
+/* Stage 2 (Deliverables): Evenly distribute downstream deliverables */
+.dag-col.stage-deliverables .dag-nodes-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+  min-height: 320px;
+}
+
+.dag-col-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.dag-step-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+}
+
+.dag-step-tag.tempo-tag {
+  color: var(--accent-tempo);
+}
+
+.dag-col-header h4 {
+  font-size: 1.05rem;
+}
+
+.dag-nodes-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* DAG Nodes */
+.dag-node {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--trans-fast);
+}
+
+.dag-node:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(4px);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.dag-node.is-active {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.dag-node.node-tempo-runtime {
+  border-color: rgba(192, 132, 252, 0.4);
+}
+.dag-node.node-tempo-runtime:hover,
+.dag-node.node-tempo-runtime.is-active {
+  border-color: var(--accent-tempo);
+  box-shadow: var(--glow-tempo);
+}
+
+.node-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  background: var(--bg-surface-2);
+  flex-shrink: 0;
+}
+
+.root-icon { background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); }
+.icon-baseline { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); }
+.icon-rebuild { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); }
+.icon-reuse { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); }
+.icon-running { background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); }
+.icon-done { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); }
+.icon-tempo { background: rgba(192, 132, 252, 0.15); border: 1px solid var(--accent-tempo); }
+.icon-master { background: rgba(129, 140, 248, 0.15); border: 1px solid var(--accent-indigo); }
+
+.dag-node.node-baseline { border-color: rgba(56, 189, 248, 0.25); }
+.dag-node.node-baseline:hover { border-color: var(--accent-cyan); }
+.dag-node.node-rebuild { border-color: rgba(244, 63, 94, 0.3); }
+.dag-node.node-reuse { border-color: rgba(16, 185, 129, 0.3); }
+
+.node-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.node-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.node-meta-line {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+.node-mutation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  padding: 3px 8px;
+  background: var(--bg-surface-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.pill-arrow { color: var(--accent-cyan); }
+.pill-to { color: var(--status-warn); font-weight: 700; }
+
+.node-keyframe-tag {
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.node-sha-badge {
+  font-size: 0.7rem;
+  color: var(--status-pass);
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.node-tempo-callout {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--accent-tempo);
+}
+.node-span-pill {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.node-action-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.legend-node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.dot-baseline { background: #38bdf8; box-shadow: 0 0 6px rgba(56, 189, 248, 0.4); }
+.dot-rebuild { background: #f43f5e; box-shadow: 0 0 6px rgba(244, 63, 94, 0.4); }
+.dot-reuse { background: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }
+
+/* Mobile / Tablet Horizontal Scroll Hint Bar */
+.dag-scroll-hint-bar {
+  display: none;
+  justify-content: flex-end;
+  padding: 4px 16px 2px;
+}
+
+.dag-scroll-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-full);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 900px) {
+  .dag-scroll-hint-bar {
+    display: flex;
+  }
+}
+
+
+

@@ -1,0 +1,214 @@
+/**
+ * Cinema CI — Impact Intelligence View Styles
+ */
+
+.impact-view-header {
+  margin-bottom: 32px;
+}
+
+.impact-badge-wrap {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.impact-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.impact-metrics-banner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.metric-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Impact Workspace Grid */
+.impact-workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 24px;
+}
+
+.dag-visualizer-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.impact-dag-container {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.4) rgba(15, 23, 42, 0.8);
+}
+
+.impact-dag-container::-webkit-scrollbar {
+  height: 8px;
+}
+.impact-dag-container::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 4px;
+}
+.impact-dag-container::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.4);
+  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+.impact-dag-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.7);
+}
+
+@media (max-width: 1100px) {
+  .impact-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dag-legend-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+}
+
+.legend-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-line {
+  width: 24px;
+  height: 2px;
+}
+
+.line-declared { background: var(--accent-cyan); }
+.line-tempo { background: var(--accent-tempo); height: 3px; box-shadow: 0 0 8px var(--accent-tempo); }
+.legend-node-dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot-reuse { background: var(--status-pass); }
+
+/* Evidence Card */
+.evidence-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.evidence-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.evidence-k {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.evidence-v {
+  font-size: 0.95rem;
+}
+
+.evidence-quote {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+  background: var(--bg-surface-0);
+  border-left: 3px solid var(--accent-tempo);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.evidence-meta-row {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+}
+
+/* Breakdown Grid */
+.impact-breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.asset-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.asset-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.asset-row:last-child {
+  border-bottom: none;
+}
+
+.asset-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.asset-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.asset-desc {
+  font-size: 0.8rem;
+}
+
+.impact-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+

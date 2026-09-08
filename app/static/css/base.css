@@ -1,0 +1,99 @@
+/**
+ * Cinema CI — Base Styles & Resets
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, var(--bg-app) 70%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface-0);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-3);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color var(--trans-fast);
+}
+a:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Utility Classes */
+.u-hidden { display: none !important; }
+.u-mt-sm { margin-top: 8px !important; }
+.u-mt-md { margin-top: 16px !important; }
+.u-mt-lg { margin-top: 24px !important; }
+.u-mt-xl { margin-top: 32px !important; }
+.u-mb-sm { margin-bottom: 8px !important; }
+.u-mb-md { margin-bottom: 16px !important; }
+.u-mb-lg { margin-bottom: 24px !important; }
+
+.font-mono { font-family: var(--font-mono); }
+.font-bold { font-weight: 700; }
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent-cyan); }
+.text-tempo { color: var(--accent-tempo); }
+.text-green { color: var(--status-pass); }
+.text-danger { color: var(--status-danger); }
+.text-white { color: #ffffff; }
+.text-break { word-break: break-all; }
+.text-center { text-align: center; }
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+

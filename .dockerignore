@@ -1,0 +1,15 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+storage/build_*
+storage/*.mp4
+storage/*.jpg
+storage/*.png
+tests
+scratch
+docs
