@@ -30,7 +30,7 @@ Cinema CI comes with a pre-configured, production-ready dashboard.
 ### 2.1. Importing the Dashboard
 1. Log into your **Grafana Cloud** instance (`https://<instance>.grafana.net`).
 2. In the left sidebar, navigate to **Dashboards** ➔ **New** ➔ **Import**.
-3. Copy the entire contents of [`grafana/dashboard.json`](file:///Users/rk/dev/llm/hackathon/cinema-ci/grafana/dashboard.json) and paste into the JSON box.
+3. Copy the entire contents of [`grafana/dashboard.json`](../grafana/dashboard.json) and paste into the JSON box.
 4. Select your **Prometheus** and **Loki** data sources and click **Import**.
 
 ### 2.2. Key Panels in the Dashboard
